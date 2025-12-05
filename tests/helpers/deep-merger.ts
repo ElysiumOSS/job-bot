@@ -4,6 +4,8 @@ export type DeepPartial<T> = {
 
 export function deepMerge<T>(target: T, src: DeepPartial<T>): T {
     for (const key in src) {
+        if (!Object.prototype.hasOwnProperty.call(src, key)) continue;
+        if (key === "__proto__" || key === "constructor" || key === "prototype") continue;
         if (
             src[key] &&
             typeof src[key] === 'object' &&
